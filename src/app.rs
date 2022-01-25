@@ -16,15 +16,15 @@ impl Default for TemplateApp {
     fn default() -> Self {
         Self {
             // Example stuff:
-            label: "Hello World!".to_owned(),
-            value: 2.7,
+            label: "Oops!!".to_owned(),
+            value: 5.5,
         }
     }
 }
 
 impl epi::App for TemplateApp {
     fn name(&self) -> &str {
-        "eframe template"
+        "Hello World!!"
     }
 
     /// Called once before the first frame.
@@ -71,16 +71,16 @@ impl epi::App for TemplateApp {
         });
 
         egui::SidePanel::left("side_panel").show(ctx, |ui| {
-            ui.heading("Side Panel");
+            ui.heading("Left Panel");
 
             ui.horizontal(|ui| {
-                ui.label("Write something: ");
+                ui.label("Don't write something: ");
                 ui.text_edit_singleline(label);
             });
 
             ui.add(egui::Slider::new(value, 0.0..=10.0).text("value"));
-            if ui.button("Increment").clicked() {
-                *value += 1.0;
+            if ui.button("Decrement").clicked() {
+                *value -= 1.0;
             }
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {

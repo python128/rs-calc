@@ -45,14 +45,14 @@ rm -f docs/${CRATE_NAME_SNAKE_CASE}_bg.wasm
 echo "Building rust…"
 BUILD=release
 cargo build -p ${CRATE_NAME} --release --lib --target wasm32-unknown-unknown
+# cargo build  --release --target wasm32-unknown-unknown
 
 # Get the output directory (in the workspace it is in another location)
 TARGET=`cargo metadata --format-version=1 | jq --raw-output .target_directory`
 
 echo "Generating JS bindings for wasm…"
 TARGET_NAME="${CRATE_NAME_SNAKE_CASE}.wasm"
-wasm-bindgen "${TARGET}/wasm32-unknown-unknown/${BUILD}/${TARGET_NAME}" \
-  --out-dir docs --no-modules --no-typescript
+wasm-bindgen --out-dir docs --no-modules --no-typescript "${TARGET}/wasm32-unknown-unknown/${BUILD}/${TARGET_NAME}"
 
 if [ "${FAST}" = false ]; then
   echo "Optimizing wasm…"
